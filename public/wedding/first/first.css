@@ -1,0 +1,423 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Animated sky background (pure CSS, replaces the old WebGL cloud scene)
+--------------------------------------------------------------*/
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: linear-gradient(160deg, #bfe3ff 0%, #9bd4ff 45%, #7cc4f5 100%);
+}
+
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 100px;
+  filter: drop-shadow(0 8px 14px rgba(20, 70, 110, .08));
+  will-change: transform;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  border-radius: 100px;
+}
+
+/* Cloud 1 — low wide puff, two humps */
+.cloud-1 {
+  top: 10%; width: 170px; height: 46px; left: -190px; opacity: .95;
+  animation: driftRight 48s linear infinite;
+}
+.cloud-1::before { width: 55%; height: 170%; top: -75%; left: 6%; }
+.cloud-1::after   { width: 38%; height: 130%; top: -55%; right: 18%; }
+
+/* Cloud 2 — single tall rounded puff, off-center */
+.cloud-2 {
+  top: 22%; width: 100px; height: 38px; left: -120px; opacity: .78;
+  animation: driftRight 65s linear infinite; animation-delay: -20s;
+}
+.cloud-2::before { width: 70%; height: 150%; top: -65%; left: 20%; }
+
+/* Cloud 3 — small, flat, three tiny bumps */
+.cloud-3 {
+  top: 15%; width: 80px; height: 26px; left: -100px; opacity: .7;
+  animation: driftRight 38s linear infinite; animation-delay: -8s;
+}
+.cloud-3::before { width: 32%; height: 120%; top: -50%; left: 2%; }
+.cloud-3::after   { width: 32%; height: 140%; top: -65%; right: 4%; }
+
+/* Cloud 4 — long stretched streak with one hump */
+.cloud-4 {
+  top: 38%; width: 160px; height: 32px; left: -180px; opacity: .6;
+  animation: driftRight 56s linear infinite; animation-delay: -30s;
+}
+.cloud-4::before { width: 40%; height: 160%; top: -70%; left: 32%; }
+
+/* Cloud 5 — fluffy cluster, three overlapping lobes */
+.cloud-5 {
+  top: 48%; width: 95px; height: 40px; left: -120px; opacity: .5;
+  animation: driftRight 72s linear infinite; animation-delay: -45s;
+}
+.cloud-5::before { width: 48%; height: 150%; top: -60%; left: -4%; }
+.cloud-5::after   { width: 55%; height: 130%; top: -45%; right: -6%; }
+
+/* Cloud 6 — tiny wisp, single small bump */
+.cloud-6 {
+  top: 6%; width: 56px; height: 20px; left: -80px; opacity: .55;
+  animation: driftRight 30s linear infinite; animation-delay: -12s;
+}
+.cloud-6::before { width: 60%; height: 140%; top: -55%; left: 18%; }
+
+/* Cloud 7 — wide flat base with staggered double hump */
+.cloud-7 {
+  top: 30%; width: 190px; height: 42px; left: -210px; opacity: .45;
+  animation: driftRight 60s linear infinite; animation-delay: -5s;
+}
+.cloud-7::before { width: 42%; height: 145%; top: -60%; left: 10%; }
+.cloud-7::after   { width: 30%; height: 110%; top: -40%; right: 22%; }
+
+@keyframes driftRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100vw + 220px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud { animation: none !important; }
+  .cloud-1 { left: 5%; }
+  .cloud-2 { left: 55%; }
+  .cloud-3 { left: 30%; }
+  .cloud-4 { left: 70%; }
+  .cloud-5 { left: 15%; }
+  .cloud-6 { left: 85%; }
+  .cloud-7 { left: 42%; }
+}
+
+h1 {
+  font-size: clamp(2.2rem, 9vw, 2.625rem);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+h6 {
+  font-size: clamp(.8rem, 3vw, 1rem);
+  margin-bottom: 2px;
+}
+
+h5 {
+  font-size: clamp(.95rem, 3.5vw, 1.25rem);
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: clamp(1.15rem, 4.5vw, 1.5625rem);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: clamp(.7rem, 2.6vw, .75rem);
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .85rem 1.75rem;
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  color: #2f7fb8;
+  background: rgba(255, 255, 255, .95);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, background .3s ease, color .3s ease;
+  margin: 1.5rem 0 0;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 8px 24px -8px rgba(13, 71, 110, .35);
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+
+.cta-button svg {
+  width: 16px;
+  height: 16px;
+  transition: transform .3s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px -6px rgba(13, 71, 110, .45);
+  background: #ffffff;
+}
+
+.cta-button:hover svg {
+  transform: translateX(3px);
+}
+
+.cta-button:active {
+  background: #2f7fb8;
+  color: white;
+  transform: translateY(-1px) scale(.98);
+}
+
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 8px 24px -8px rgba(13, 71, 110, .35); }
+  50% { box-shadow: 0 8px 28px -4px rgba(13, 71, 110, .5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-button { animation: none; }
+}
+
+/*--------------------------------------------------------------
+# Image Container as Hero Section
+--------------------------------------------------------------*/
+.image-hero {
+  width: 100%;
+  height: 100%;
+  padding: clamp(16px, 4vh, 48px) 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.image-hero-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.image-hero-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  transform: translateY(0);
+  filter: drop-shadow(0 18px 30px rgba(10, 30, 50, .25));
+}
+
+.hero-img-desktop { display: none; }
+
+.image-hero-border {
+  display: none;
+}
+
+.image-hero-content,
+.image-hero-content-text {
+  position: relative;
+  margin: 0 auto;
+  z-index: 3;
+  text-align: center;
+  color: #123a5e;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.image-hero-content-text {
+  max-width: 420px;
+  margin-top: clamp(32px, 8vh, 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-hero-content-text h6 {
+  text-transform: uppercase;
+  letter-spacing: .25em;
+  font-weight: 500;
+  color: #2f7fb8;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  opacity: 0;
+  animation: heroReveal .8s cubic-bezier(.22,1,.36,1) .15s forwards;
+}
+
+.image-hero-content-text h1 {
+  font-size: clamp(2.6rem, 8vw, 4rem);
+  line-height: 1.4;
+  margin-top: 6px;
+  margin-bottom: 14px;
+  color: #0d3a63;
+  text-shadow: 0 2px 0 rgba(255,255,255,.7), 0 4px 18px rgba(255,255,255,.6);
+  opacity: 0;
+  animation: heroReveal .9s cubic-bezier(.22,1,.36,1) .3s forwards;
+}
+
+.image-hero-content-text h5 {
+  font-weight: 500;
+  letter-spacing: .08em;
+  margin-top: 0;
+  color: #1c4a73;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  opacity: 0;
+  animation: heroReveal .8s cubic-bezier(.22,1,.36,1) .45s forwards;
+}
+
+.image-hero-content-text .invite-divider {
+  width: 48px;
+  height: 2px;
+  background: #2f7fb8;
+  border-radius: 2px;
+  margin: 1.1rem auto 1.3rem;
+  opacity: 0;
+  animation: heroReveal .8s cubic-bezier(.22,1,.36,1) .55s forwards;
+}
+
+.image-hero-content-text p {
+  font-size: 13px;
+  letter-spacing: .04em;
+  font-weight: 500;
+  color: #2a5a85;
+  text-shadow: 0 1px 0 rgba(255,255,255,.7);
+  opacity: 0;
+  animation: heroReveal .8s cubic-bezier(.22,1,.36,1) .65s forwards;
+}
+
+.image-hero-content-text h4 {
+  font-size: 28px;
+  color: #0d3a63;
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
+  font-weight: 600;
+  margin: 2px 0 14px;
+  opacity: 0;
+  animation: heroReveal .8s cubic-bezier(.22,1,.36,1) .75s forwards;
+}
+
+.image-hero-content-text .cta-button {
+  opacity: 0;
+  animation: heroReveal .8s cubic-bezier(.22,1,.36,1) .9s forwards, ctaPulse 2.6s ease-in-out 1.7s infinite;
+}
+
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-hero-content-text h6,
+  .image-hero-content-text h1,
+  .image-hero-content-text h5,
+  .image-hero-content-text .invite-divider,
+  .image-hero-content-text p,
+  .image-hero-content-text h4,
+  .image-hero-content-text .cta-button {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .image-hero-content {
+    padding: 0 20px;
+  }
+  .image-hero-content-text {
+    padding: 0 18px;
+    margin-top: clamp(20px, 6vh, 40px);
+  }
+
+  .image-hero-content-text h6 { margin-bottom: 6px; }
+  .image-hero-content-text h1 { margin-top: 4px; margin-bottom: 10px; }
+  .image-hero-content-text h5 { margin-bottom: 14px; }
+  .image-hero-content-text .invite-divider { margin: .8rem auto 1rem; }
+  .image-hero-content-text p { margin-bottom: 4px; }
+  .image-hero-content-text h4 { margin: 2px 0 10px; }
+}
+
+@media (max-width: 480px) {
+  .image-hero-content-text {
+    margin-top: clamp(16px, 5vh, 28px);
+  }
+
+  .image-hero-content-text h1 { margin-top: 2px; margin-bottom: 8px; }
+  .image-hero-content-text h5 { margin-bottom: 10px; }
+  .image-hero-content-text .invite-divider { margin: .65rem auto .85rem; }
+  .image-hero-content-text .cta-button { margin-top: 1rem; }
+}
+
+@media (max-height: 700px) and (max-width: 480px) {
+  .image-hero-content-text h6 { display: none; }
+}
+
+/* Desktop layout — the mobile-portrait composition no longer fits a wide
+   viewport, so the photo is framed as a centered portrait card and the
+   text sits below it instead of stretching full-bleed. */
+@media (min-width: 900px) {
+  .image-hero {
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .image-hero-container {
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .hero-img-mobile { display: none; }
+
+  .image-hero-container .hero-img-desktop {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    transform: none;
+    filter: drop-shadow(0 18px 30px rgba(10, 30, 50, .25));
+  }
+
+  .image-hero-content-text {
+    margin-top: 0;
+    position: absolute;
+    top: clamp(24px, 5vh, 56px);
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 440px;
+  }
+}
+
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.josefin-sans-regular {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
