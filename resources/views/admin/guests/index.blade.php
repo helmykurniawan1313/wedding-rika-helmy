@@ -78,7 +78,7 @@
             </thead>
             <tbody>
                 @foreach ($guests as $guest)
-                    @php $link = url('/invite/'.$guest->slug); @endphp
+                    @php $link = route('wedding.invite', $guest->slug); @endphp
                     <tr style="animation: fadeUp .35s var(--ease) both; animation-delay: {{ min($loop->index * .03, .3) }}s;">
                         <td style="font-weight:600;">{{ $guest->name }}</td>
                         <td>
